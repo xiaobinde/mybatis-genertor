@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.blog.pojo.Comment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="link_to" property="linkTo" jdbcType="VARCHAR" />
+    <result column="markdown_enable" property="markdownEnable" jdbcType="BIT" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="vote_up" property="voteUp" jdbcType="INTEGER" />
+    <result column="vote_down" property="voteDown" jdbcType="INTEGER" />
+    <result column="rate" property="rate" jdbcType="INTEGER" />
+    <result column="rate_count" property="rateCount" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="comment_status" property="commentStatus" jdbcType="VARCHAR" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="modified" property="modified" jdbcType="TIMESTAMP" />
+    <result column="slug" property="slug" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="DECIMAL" />
+    <result column="lat" property="lat" jdbcType="DECIMAL" />
+    <result column="meta_keywords" property="metaKeywords" jdbcType="VARCHAR" />
+    <result column="meta_description" property="metaDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.blog.pojo.CommentWithBLOBs" extends="BaseResultMap" >
+    <result column="title" property="title" jdbcType="LONGVARCHAR" />
+    <result column="text" property="text" jdbcType="LONGVARCHAR" />
+    <result column="summary" property="summary" jdbcType="LONGVARCHAR" />
+    <result column="user_agent" property="userAgent" jdbcType="LONGVARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, link_to, markdown_enable, thumbnail, module, style, user_id, author, user_email, 
+    user_ip, parent_id, object_id, order_number, status, vote_up, vote_down, rate, rate_count, 
+    price, comment_status, comment_count, comment_time, view_count, created, modified, 
+    slug, flag, lng, lat, meta_keywords, meta_description
+  </sql>
+  <sql id="Blob_Column_List" >
+    title, text, summary, user_agent, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jpress_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from jpress_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.blog.pojo.CommentWithBLOBs" >
+    insert into jpress_content (id, link_to, markdown_enable, 
+      thumbnail, module, style, 
+      user_id, author, user_email, 
+      user_ip, parent_id, object_id, 
+      order_number, status, vote_up, 
+      vote_down, rate, rate_count, 
+      price, comment_status, comment_count, 
+      comment_time, view_count, created, 
+      modified, slug, flag, 
+      lng, lat, meta_keywords, 
+      meta_description, title, text, 
+      summary, user_agent, remarks
+      )
+    values (#{id,jdbcType=BIGINT}, #{linkTo,jdbcType=VARCHAR}, #{markdownEnable,jdbcType=BIT}, 
+      #{thumbnail,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userIp,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{objectId,jdbcType=BIGINT}, 
+      #{orderNumber,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{voteUp,jdbcType=INTEGER}, 
+      #{voteDown,jdbcType=INTEGER}, #{rate,jdbcType=INTEGER}, #{rateCount,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{commentStatus,jdbcType=VARCHAR}, #{commentCount,jdbcType=INTEGER}, 
+      #{commentTime,jdbcType=TIMESTAMP}, #{viewCount,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{modified,jdbcType=TIMESTAMP}, #{slug,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=DECIMAL}, #{lat,jdbcType=DECIMAL}, #{metaKeywords,jdbcType=VARCHAR}, 
+      #{metaDescription,jdbcType=VARCHAR}, #{title,jdbcType=LONGVARCHAR}, #{text,jdbcType=LONGVARCHAR}, 
+      #{summary,jdbcType=LONGVARCHAR}, #{userAgent,jdbcType=LONGVARCHAR}, #{remarks,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.pojo.CommentWithBLOBs" >
+    insert into jpress_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="linkTo != null" >
+        link_to,
+      </if>
+      <if test="markdownEnable != null" >
+        markdown_enable,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userIp != null" >
+        user_ip,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="voteUp != null" >
+        vote_up,
+      </if>
+      <if test="voteDown != null" >
+        vote_down,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="rateCount != null" >
+        rate_count,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="commentStatus != null" >
+        comment_status,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="modified != null" >
+        modified,
+      </if>
+      <if test="slug != null" >
+        slug,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords,
+      </if>
+      <if test="metaDescription != null" >
+        meta_description,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="userAgent != null" >
+        user_agent,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="linkTo != null" >
+        #{linkTo,jdbcType=VARCHAR},
+      </if>
+      <if test="markdownEnable != null" >
+        #{markdownEnable,jdbcType=BIT},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="voteUp != null" >
+        #{voteUp,jdbcType=INTEGER},
+      </if>
+      <if test="voteDown != null" >
+        #{voteDown,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="rateCount != null" >
+        #{rateCount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="commentStatus != null" >
+        #{commentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentTime != null" >
+        #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null" >
+        #{modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slug != null" >
+        #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="metaKeywords != null" >
+        #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        #{userAgent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.CommentWithBLOBs" >
+    update jpress_content
+    <set >
+      <if test="linkTo != null" >
+        link_to = #{linkTo,jdbcType=VARCHAR},
+      </if>
+      <if test="markdownEnable != null" >
+        markdown_enable = #{markdownEnable,jdbcType=BIT},
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        style = #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="objectId != null" >
+        object_id = #{objectId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="voteUp != null" >
+        vote_up = #{voteUp,jdbcType=INTEGER},
+      </if>
+      <if test="voteDown != null" >
+        vote_down = #{voteDown,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="rateCount != null" >
+        rate_count = #{rateCount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="commentStatus != null" >
+        comment_status = #{commentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentTime != null" >
+        comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null" >
+        modified = #{modified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slug != null" >
+        slug = #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        meta_description = #{metaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        user_agent = #{userAgent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.pojo.CommentWithBLOBs" >
+    update jpress_content
+    set link_to = #{linkTo,jdbcType=VARCHAR},
+      markdown_enable = #{markdownEnable,jdbcType=BIT},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      style = #{style,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      object_id = #{objectId,jdbcType=BIGINT},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      vote_up = #{voteUp,jdbcType=INTEGER},
+      vote_down = #{voteDown,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=INTEGER},
+      rate_count = #{rateCount,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      comment_status = #{commentStatus,jdbcType=VARCHAR},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=TIMESTAMP},
+      slug = #{slug,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=DECIMAL},
+      lat = #{lat,jdbcType=DECIMAL},
+      meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      meta_description = #{metaDescription,jdbcType=VARCHAR},
+      title = #{title,jdbcType=LONGVARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR},
+      summary = #{summary,jdbcType=LONGVARCHAR},
+      user_agent = #{userAgent,jdbcType=LONGVARCHAR},
+      remarks = #{remarks,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Comment" >
+    update jpress_content
+    set link_to = #{linkTo,jdbcType=VARCHAR},
+      markdown_enable = #{markdownEnable,jdbcType=BIT},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      style = #{style,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      author = #{author,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      object_id = #{objectId,jdbcType=BIGINT},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      vote_up = #{voteUp,jdbcType=INTEGER},
+      vote_down = #{voteDown,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=INTEGER},
+      rate_count = #{rateCount,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      comment_status = #{commentStatus,jdbcType=VARCHAR},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=TIMESTAMP},
+      slug = #{slug,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=DECIMAL},
+      lat = #{lat,jdbcType=DECIMAL},
+      meta_keywords = #{metaKeywords,jdbcType=VARCHAR},
+      meta_description = #{metaDescription,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

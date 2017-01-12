@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.blog.pojo.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="email_status" property="emailStatus" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mobile_status" property="mobileStatus" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="content_count" property="contentCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="weibo" property="weibo" jdbcType="VARCHAR" />
+    <result column="facebook" property="facebook" jdbcType="VARCHAR" />
+    <result column="linkedin" property="linkedin" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="occupation" property="occupation" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="site" property="site" jdbcType="VARCHAR" />
+    <result column="graduateschool" property="graduateschool" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="idcardtype" property="idcardtype" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="create_source" property="createSource" jdbcType="VARCHAR" />
+    <result column="logged" property="logged" jdbcType="TIMESTAMP" />
+    <result column="activated" property="activated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, username, nickname, realname, password, salt, email, email_status, mobile, mobile_status, 
+    telephone, amount, gender, role, signature, content_count, comment_count, qq, wechat, 
+    weibo, facebook, linkedin, birthday, company, occupation, address, zipcode, site, 
+    graduateschool, education, avatar, idcardtype, idcard, status, created, create_source, 
+    logged, activated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jpress_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from jpress_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.blog.pojo.User" >
+    insert into jpress_user (id, username, nickname, 
+      realname, password, salt, 
+      email, email_status, mobile, 
+      mobile_status, telephone, amount, 
+      gender, role, signature, 
+      content_count, comment_count, qq, 
+      wechat, weibo, facebook, 
+      linkedin, birthday, company, 
+      occupation, address, zipcode, 
+      site, graduateschool, education, 
+      avatar, idcardtype, idcard, 
+      status, created, create_source, 
+      logged, activated)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{emailStatus,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{mobileStatus,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{gender,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{contentCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{qq,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{weibo,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, 
+      #{linkedin,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
+      #{occupation,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{site,jdbcType=VARCHAR}, #{graduateschool,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{idcardtype,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{createSource,jdbcType=VARCHAR}, 
+      #{logged,jdbcType=TIMESTAMP}, #{activated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.pojo.User" >
+    insert into jpress_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="emailStatus != null" >
+        email_status,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="mobileStatus != null" >
+        mobile_status,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="contentCount != null" >
+        content_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="weibo != null" >
+        weibo,
+      </if>
+      <if test="facebook != null" >
+        facebook,
+      </if>
+      <if test="linkedin != null" >
+        linkedin,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="occupation != null" >
+        occupation,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="zipcode != null" >
+        zipcode,
+      </if>
+      <if test="site != null" >
+        site,
+      </if>
+      <if test="graduateschool != null" >
+        graduateschool,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="idcardtype != null" >
+        idcardtype,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="createSource != null" >
+        create_source,
+      </if>
+      <if test="logged != null" >
+        logged,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileStatus != null" >
+        #{mobileStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="contentCount != null" >
+        #{contentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null" >
+        #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null" >
+        #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedin != null" >
+        #{linkedin,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null" >
+        #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null" >
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardtype != null" >
+        #{idcardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createSource != null" >
+        #{createSource,jdbcType=VARCHAR},
+      </if>
+      <if test="logged != null" >
+        #{logged,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.User" >
+    update jpress_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailStatus != null" >
+        email_status = #{emailStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileStatus != null" >
+        mobile_status = #{mobileStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="contentCount != null" >
+        content_count = #{contentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null" >
+        weibo = #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null" >
+        facebook = #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedin != null" >
+        linkedin = #{linkedin,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null" >
+        occupation = #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipcode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null" >
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        graduateschool = #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardtype != null" >
+        idcardtype = #{idcardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createSource != null" >
+        create_source = #{createSource,jdbcType=VARCHAR},
+      </if>
+      <if test="logged != null" >
+        logged = #{logged,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.pojo.User" >
+    update jpress_user
+    set username = #{username,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      email_status = #{emailStatus,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      mobile_status = #{mobileStatus,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      gender = #{gender,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      content_count = #{contentCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      weibo = #{weibo,jdbcType=VARCHAR},
+      facebook = #{facebook,jdbcType=VARCHAR},
+      linkedin = #{linkedin,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      company = #{company,jdbcType=VARCHAR},
+      occupation = #{occupation,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      graduateschool = #{graduateschool,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      idcardtype = #{idcardtype,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      create_source = #{createSource,jdbcType=VARCHAR},
+      logged = #{logged,jdbcType=TIMESTAMP},
+      activated = #{activated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
